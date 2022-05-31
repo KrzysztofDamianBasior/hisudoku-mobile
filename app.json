@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "hisudoku-mobile",
-    "slug": "hisudoku-mobile",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "name": "HiSudoku",
+    "slug": "HiSudoku",
+    "version": "0.0.0",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "githubUrl": "https://github.com/KrzysztofDamianBasior/hisudoku-mobile",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
