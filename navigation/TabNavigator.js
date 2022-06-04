@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
 
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Animated } from 'react-native'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -14,9 +14,53 @@ import PersonalStack from './PersonalStack'
 import Info from '../screens/Info'
 import SettingsStack from './SettingsStack'
 
+import useBottomTabAnimation from '../hooks/useBottomTabAnimation'
+
 const TabNavigator = createBottomTabNavigator()
 
 export default () => {
+  const { bgColorAnimation, topMargins, boxSizes, colors, setFocusedTab } =
+    useBottomTabAnimation(4) //there is 4 tabs
+
+  const pages = [
+    {
+      component: HomeStack,
+      name: 'Home',
+      tabBarAccessibilityLabel: 'Home screen',
+      headerShown: false,
+      iconName: 'dashboard',
+    },
+    {
+      component: PersonalStack,
+      name: 'Personal',
+      tabBarAccessibilityLabel: 'Personal screen',
+      headerShown: false,
+      iconName: 'account-circle',
+    },
+    {
+      component: SettingsStack,
+      name: 'Settings',
+      tabBarAccessibilityLabel: 'Settings screen',
+      headerShown: true,
+      iconName: 'settings',
+      headerTransparent: true,
+      headerTitle: () => {
+        return <Text>Settings</Text>
+      },
+    },
+    {
+      component: Info,
+      name: 'Info',
+      tabBarAccessibilityLabel: 'Informations about app',
+      headerShown: true,
+      iconName: 'info-outline',
+      headerTransparent: true,
+      headerTitle: () => {
+        return <Text>App information</Text>
+      },
+    },
+  ]
+
   return (
     <TabNavigator.Navigator
       initialRouteName="Home"
@@ -26,7 +70,7 @@ export default () => {
         tabBarInactiveTintColor: '#afafaf',
         tabBarActiveBackgroundColor: '#111111',
         tabBarInactiveBackgroundColor: '#222222',
-        tabBarIconStyle: {},
+        tabBarShowLabel: false,
         tabBarBackground: () => (
           <BlurView
             tint="light"
@@ -35,7 +79,6 @@ export default () => {
           />
         ),
         tabBarStyle: { position: 'absolute' }, //required if BlurView was used in a tabBarBackground. To show your screen under the tab bar, you can set the position style to absolute
-        tabBarLabelPosition: 'beside-icon', //"below-icon"
         headerBackground: () => (
           <BlurView
             tint="dark"
@@ -45,69 +88,72 @@ export default () => {
         ),
       }}
     >
-      <TabNavigator.Screen
-        name="Home"
-        component={HomeStack}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarLabelStyle: {},
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="dashboard" size={size} color={color} />
-          ),
-          tabBarAccessibilityLabel: 'Home screen',
-          headerShown: false,
-        }}
-      />
-      <TabNavigator.Screen
-        name="Personal"
-        component={PersonalStack}
-        options={{
-          tabBarLabel: 'Personal',
-          tabBarLabelStyle: {},
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" size={size} color={color} />
-          ),
-          tabBarAccessibilityLabel: 'Personal tab',
-          headerShown: false,
-        }}
-      />
-      <TabNavigator.Screen
-        name="Settings"
-        component={SettingsStack}
-        options={{
-          tabBarLabel: 'Settings',
-          tabBarLabelStyle: {},
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="settings" size={size} color={color} />
-          ),
-          tabBarAccessibilityLabel: 'Settings screen',
-          headerShown: false,
-        }}
-      />
-      <TabNavigator.Screen
-        name="Info"
-        component={Info}
-        options={{
-          tabBarLabel: 'Info',
-          tabBarLabelStyle: {},
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="info-outline" size={size} color={color} />
-          ),
-          tabBarAccessibilityLabel: 'Settings screen',
-          headerTransparent: true,
-          headerTitle: () => {
-            return <Text>App information</Text>
-          },
-        }}
-      />
+      {pages.map((page, index) => (
+        <TabNavigator.Screen
+          key={'tab-' + index}
+          name={page.name}
+          component={page.component}
+          options={{
+            tabBarAccessibilityLabel: page.tabBarAccessibilityLabel,
+            tabBarIcon: ({ color, size, focused }) => (
+              <View style={styles.tabWrapper}>
+                <Animated.View
+                  style={[
+                    styles.iconWrapper,
+                    {
+                      backgroundColor: bgColorAnimation(colors[index]),
+                      marginTop: topMargins[index],
+                      width: boxSizes[index],
+                      height: boxSizes[index],
+                    },
+                  ]}
+                >
+                  <Animated.Text style={{ padding: 10, textAlign: 'center' }}>
+                    <MaterialIcons
+                      name={page.iconName}
+                      size={size}
+                      color={color}
+                    />
+                  </Animated.Text>
+                </Animated.View>
+              </View>
+            ),
+            headerShown: page.headerShown,
+            headerTransparent: page.headerTransparent,
+            headerTitle: page.headerTitle,
+          }}
+          listeners={{
+            tabPress: (e) => {
+              setFocusedTab(index)
+            },
+          }}
+        />
+      ))}
     </TabNavigator.Navigator>
   )
 }
 
 const styles = StyleSheet.create({
   absoluteFill: {
+    display: 'flex',
     flex: 1,
     padding: 20,
     justifyContent: 'center',
+  },
+  tabWrapper: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  iconWrapper: {
+    position: 'relative',
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    marginTop: -10,
+    borderRadius: 35,
   },
 })
