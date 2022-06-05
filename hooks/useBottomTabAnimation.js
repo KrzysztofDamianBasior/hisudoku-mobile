@@ -17,7 +17,7 @@ export default function useBottomTabAnimation(tabNumber) {
 
   const iconSizes = mappable.map((item, index) => {
     return useState(
-      index === focusedTab ? new Animated.Value(40) : new Animated.Value(28)
+      index === focusedTab ? new Animated.Value(30) : new Animated.Value(10)
     )[0]
   })
 
@@ -43,7 +43,8 @@ export default function useBottomTabAnimation(tabNumber) {
       }).start()
     })
     iconSizes.forEach((s, index) => {
-      let value = focusedTab === index ? 40 : 28
+      let value = focusedTab === index ? 30 : 10
+      console.log(index)
       Animated.timing(s, {
         toValue: value,
         duration: 200,
@@ -74,5 +75,15 @@ export default function useBottomTabAnimation(tabNumber) {
       outputRange: ['rgb(74,74,74)', 'rgb(82,224,84)'],
     })
 
-  return { bgColorAnimation, topMargins, boxSizes, colors, setFocusedTab }
+  console.log(iconSizes)
+  console.log(focusedTab)
+
+  return {
+    bgColorAnimation,
+    iconSizes,
+    topMargins,
+    boxSizes,
+    colors,
+    setFocusedTab,
+  }
 }

@@ -18,9 +18,17 @@ import useBottomTabAnimation from '../hooks/useBottomTabAnimation'
 
 const TabNavigator = createBottomTabNavigator()
 
+const AnimatedIcon = Animated.createAnimatedComponent(MaterialIcons)
+
 export default () => {
-  const { bgColorAnimation, topMargins, boxSizes, colors, setFocusedTab } =
-    useBottomTabAnimation(4) //there is 4 tabs
+  const {
+    bgColorAnimation,
+    topMargins,
+    boxSizes,
+    colors,
+    setFocusedTab,
+    iconSizes,
+  } = useBottomTabAnimation(4) //there is 4 tabs
 
   const pages = [
     {
@@ -108,10 +116,16 @@ export default () => {
                     },
                   ]}
                 >
-                  <Animated.Text style={{ padding: 10, textAlign: 'center' }}>
-                    <MaterialIcons
+                  <Animated.Text
+                    style={{
+                      padding: 10,
+                      textAlign: 'center',
+                    }}
+                  >
+                    <AnimatedIcon
                       name={page.iconName}
-                      size={size}
+                      style={{ fontSize: iconSizes[index] }}
+                      //size={iconSizes[index]}
                       color={color}
                     />
                   </Animated.Text>
