@@ -32,21 +32,21 @@ export default () => {
   const pages = [
     {
       component: HomeStack,
-      name: 'Home',
+      name: 'HomeStack',
       tabBarAccessibilityLabel: 'Home screen',
       headerShown: false,
       iconName: 'dashboard',
     },
     {
       component: PersonalStack,
-      name: 'Personal',
+      name: 'PersonalStack',
       tabBarAccessibilityLabel: 'Personal screen',
       headerShown: false,
       iconName: 'account-circle',
     },
     {
       component: SettingsStack,
-      name: 'Settings',
+      name: 'SettingsStack',
       tabBarAccessibilityLabel: 'Settings screen',
       headerShown: true,
       iconName: 'settings',
