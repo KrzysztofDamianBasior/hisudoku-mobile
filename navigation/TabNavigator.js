@@ -5,7 +5,6 @@ import { Text, StyleSheet, View, Animated } from 'react-native'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
 import { BlurView } from 'expo-blur'
 
@@ -71,6 +70,7 @@ export default () => {
 
   return (
     <TabNavigator.Navigator
+      id="BottomTabNavigator"
       initialRouteName="Home"
       backBehavior="firstRoute"
       screenOptions={{
