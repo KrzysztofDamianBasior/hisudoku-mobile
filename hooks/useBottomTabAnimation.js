@@ -44,7 +44,6 @@ export default function useBottomTabAnimation(tabNumber) {
     })
     iconSizes.forEach((s, index) => {
       let value = focusedTab === index ? 30 : 10
-      console.log(index)
       Animated.timing(s, {
         toValue: value,
         duration: 200,
@@ -74,9 +73,6 @@ export default function useBottomTabAnimation(tabNumber) {
       inputRange: [0, 1],
       outputRange: ['rgb(74,74,74)', 'rgb(82,224,84)'],
     })
-
-  console.log(iconSizes)
-  console.log(focusedTab)
 
   return {
     bgColorAnimation,
