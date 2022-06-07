@@ -12,7 +12,7 @@ import { initialState } from './initialState'
 
 export { initialState } from './initialState'
 
-function gameSettingsReducer(state = initialState, action) {
+export const gameSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GS_TIMER:
       return { ...state, timer: action.payload }
@@ -34,5 +34,3 @@ function gameSettingsReducer(state = initialState, action) {
       return state
   }
 }
-
-export default gameSettingsReducer

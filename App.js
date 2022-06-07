@@ -6,6 +6,10 @@ import TabNavigator from './navigation/TabNavigator'
 import { useFonts } from 'expo-font'
 import { View, Text, Linking, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+
+import { store, persistor } from './redux/store'
 
 // import environment configuration
 import getEnvVars from './config'
@@ -57,14 +61,20 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer
-      initialState={initialState}
-      onStateChange={(state) =>
-        AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
-      }
-    >
-      <TabNavigator />
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer
+          //This prop allows us to pass an initial state to use for navigation state. We can pass the restored state in this prop.
+          initialState={initialState}
+          // This prop notifies us of any state changes. We can persist the state in this callback
+          onStateChange={(state) =>
+            AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+          }
+        >
+          <TabNavigator />
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   )
 }
