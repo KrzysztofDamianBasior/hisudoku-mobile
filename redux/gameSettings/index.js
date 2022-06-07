@@ -10,3 +10,14 @@ export {
   GS_RESET,
 } from './actionTypes'
 export { gameSettingsReducer } from './reducer'
+
+export {
+  toggleTimer,
+  setSolver,
+  toggleRegionHighlighting,
+  toggleRowColumnHighlighting,
+  toggleHideDuplicates,
+  togglePreventMistakes,
+  toggleAutoRemoveNotes,
+  resetGameSettings,
+} from './actionCreators'
