@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
 import TabNavigator from './navigation/TabNavigator'
 import { useFonts } from 'expo-font'
-import { View, Text, Linking, Platform } from 'react-native'
+import { View, Linking, Platform, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -54,8 +54,15 @@ export default function App() {
 
   if (!fontsLoaded || !isReady) {
     return (
-      <View>
-        <Text>Loading</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          flexDirection: 'row',
+          padding: 10,
+        }}
+      >
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     )
   }

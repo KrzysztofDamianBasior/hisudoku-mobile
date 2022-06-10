@@ -1,20 +1,26 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import HomeOption from '../components/HomeOption'
 
 export default function Home({ navigation }) {
-  //navigation.navigate('some screen')
+  const options = [
+    { title: 'Game', name: 'Game' },
+    { title: 'Camera', name: 'Camera' },
+    { title: 'Sudoku Creator', name: 'SudokuCreator' },
+  ]
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-        <Text>Game</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
-        <Text>Camera</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('SudokuCreator')}>
-        <Text>SudokuCreator</Text>
-      </TouchableOpacity>
+      {options.map((option, index) => (
+        <HomeOption
+          key={option.title}
+          title={option.title}
+          index={index}
+          name={option.name}
+          navigation={navigation}
+        />
+      ))}
     </View>
   )
 }
