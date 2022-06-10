@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import * as React from 'react'
 import { Easing } from 'react-native'
@@ -10,11 +11,21 @@ import Home from '../screens/Home'
 import Game from '../screens/Game'
 import SudokuCreator from '../screens/SudokuCreator'
 import Camera from '../screens/Camera'
-
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 const HomeStack = createStackNavigator()
 
-// eslint-disable-next-line react/prop-types
-export default () => {
+export default ({ navigation, route }) => {
+  React.useLayoutEffect(() => {
+    const tabHiddenRoutes = ['Game', 'Camera', 'SudokuCreator']
+
+    const routeName = getFocusedRouteNameFromRoute(route)
+    if (tabHiddenRoutes.includes(routeName)) {
+      navigation.setOptions({ tabBarStyle: { display: 'none' } })
+    } else {
+      navigation.setOptions({ tabBarStyle: { display: 'flex' } })
+    }
+  }, [navigation, route])
+
   const config = {
     animation: 'timing',
     config: {
@@ -46,33 +57,47 @@ export default () => {
           headerBackAccessibilityLabel: 'Home',
         }}
       />
-      <HomeStack.Screen
-        name="Game"
-        component={Game}
-        //CUSTOM HEADER
-        //overwrite the behavior
-        //Make sure to set headerMode to screen as well when using a custom header
-        //Specify a height in headerStyle to avoid glitches
-        //If your header's height differs from the default header height, then you might notice glitches due to measurement being async. Explicitly specifying the height will avoid such glitches.
-        //Note that this style is not applied to the header by default since you control the styling of your custom header. If you also want to apply this style to your header, use headerStyle from the props.
-        // header: ({ navigation, route, options, back }) => {
-        //   const title = getHeaderTitle(options, route.name);
-        //   return (
-        //     <MyHeader
-        //       title={title}
-        //       leftButton={
-        //         back ? <MyBackButton onPress={navigation.goBack} /> : undefined
-        //       }
-        //       style={options.headerStyle}
-        //     />
-        //   );
-        // };
-        //headerStyle: {
-        //  height: 80, // Specify the height of your custom header
-        //},
-      />
+      <HomeStack.Screen name="Game" component={Game} />
       <HomeStack.Screen name="Camera" component={Camera} />
       <HomeStack.Screen name="SudokuCreator" component={SudokuCreator} />
     </HomeStack.Navigator>
   )
 }
+
+////////////////////////////////////////////////////////////////////////
+
+// import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+// const ProfileStack = createStackNavigator();
+
+// const ProfileNavigator = ({ navigation, route }) => {
+//         React.useLayoutEffect(() => {
+//             const routeName = getFocusedRouteNameFromRoute(route);
+//             if (routeName === "Group"){
+//                 navigation.setOptions({tabBarVisible: false});
+//             }else {
+//                 navigation.setOptions({tabBarVisible: true});
+//             }
+//         }, [navigation, route]);
+//         return(
+//             <ProfileStack.Navigator>
+//                 <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+//                 <ProfileStack.Screen name="Group" component={GroupScreen} />
+//             </ProfileStack.Navigator>
+//         )};
+
+// const tabHiddenRoutes = ["Group","Map"];
+
+// if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
+//   navigation.setOptions({tabBarVisible: false});
+//   }else{
+//   navigation.setOptions({tabBarVisible: true});
+// }
+// [Edit] - In case of v6, use display because tabBarVisible is deprecated in the favour of tabBarStyle-
+
+// if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
+//   navigation.setOptions({tabBarStyle: {display: 'none'}});
+//   } else {
+//   navigation.setOptions({tabBarStyle: {display: 'flex'}});
+// }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
