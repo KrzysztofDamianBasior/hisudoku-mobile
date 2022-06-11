@@ -11,7 +11,7 @@ import { BlurView } from 'expo-blur'
 import HomeStack from './HomeStack'
 import PersonalStack from './PersonalStack'
 import Info from '../screens/Info'
-import SettingsStack from './SettingsStack'
+import SettingsDashboard from '../screens/SettingsDashboard'
 
 import useBottomTabAnimation from '../hooks/useBottomTabAnimation'
 
@@ -45,7 +45,7 @@ export default () => {
       iconName: 'account-circle',
     },
     {
-      component: SettingsStack,
+      component: SettingsDashboard,
       name: 'SettingsStack',
       tabBarAccessibilityLabel: 'Settings screen',
       headerShown: true,
