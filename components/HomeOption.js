@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '400', // fontWeight:bold
     color: 'rgba(0,0,0,.54)',
-    fontFamily: 'Arial',
+    fontFamily: 'Alegreya',
     textShadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.29,

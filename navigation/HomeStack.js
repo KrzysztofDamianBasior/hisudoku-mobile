@@ -45,8 +45,6 @@ export default ({ navigation, route }) => {
           open: config,
           close: config,
         },
-        //gestureEnabled: true,
-        //gestureDirection: 'horizontal',
       }}
     >
       <HomeStack.Screen
@@ -63,41 +61,3 @@ export default ({ navigation, route }) => {
     </HomeStack.Navigator>
   )
 }
-
-////////////////////////////////////////////////////////////////////////
-
-// import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-// const ProfileStack = createStackNavigator();
-
-// const ProfileNavigator = ({ navigation, route }) => {
-//         React.useLayoutEffect(() => {
-//             const routeName = getFocusedRouteNameFromRoute(route);
-//             if (routeName === "Group"){
-//                 navigation.setOptions({tabBarVisible: false});
-//             }else {
-//                 navigation.setOptions({tabBarVisible: true});
-//             }
-//         }, [navigation, route]);
-//         return(
-//             <ProfileStack.Navigator>
-//                 <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-//                 <ProfileStack.Screen name="Group" component={GroupScreen} />
-//             </ProfileStack.Navigator>
-//         )};
-
-// const tabHiddenRoutes = ["Group","Map"];
-
-// if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
-//   navigation.setOptions({tabBarVisible: false});
-//   }else{
-//   navigation.setOptions({tabBarVisible: true});
-// }
-// [Edit] - In case of v6, use display because tabBarVisible is deprecated in the favour of tabBarStyle-
-
-// if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
-//   navigation.setOptions({tabBarStyle: {display: 'none'}});
-//   } else {
-//   navigation.setOptions({tabBarStyle: {display: 'flex'}});
-// }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
