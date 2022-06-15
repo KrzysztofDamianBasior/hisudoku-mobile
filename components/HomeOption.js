@@ -10,7 +10,25 @@ export default function HomeOption({ title, index, navigation, name }) {
       rippleColor="#D500F9"
       rippleOpacity={0.87}
       rippleDuration={1200}
-      onPress={() => navigation.navigate(name)}
+      onPress={() => {
+        switch (title) {
+          case 'Reasume':
+            navigation.navigate('Reasume')
+            break
+          case 'Generate':
+            navigation.navigate('Generate')
+            break
+          case 'Create':
+            navigation.navigate('Create')
+            break
+          case 'Scan':
+            navigation.navigate('Camera')
+            break
+          case 'Search':
+            navigation.navigate('Search')
+            break
+        }
+      }}
     >
       <Text style={styles.text}>{title}</Text>
     </Ripple>
